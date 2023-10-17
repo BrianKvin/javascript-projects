@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState } from "react";
 import {
   Box,
+  IconButton,
   InputBase,
   Typography,
   Select,
   MenuItem,
   FormControl,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
 } from "@mui/material";
 import {
   Search,
@@ -17,7 +18,7 @@ import {
   Notifications,
   Help,
   Menu,
-  Close
+  Close,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "state";
@@ -38,7 +39,7 @@ const NavBar = () => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
-  const fullName = `${user.firstName} ${user.lastName}`;
+  const fullName = user ? `${user.firstName} ${user.lastName}` : "Guest";
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -55,9 +56,15 @@ const NavBar = () => {
             },
           }}
         >
+          Sociopedia
         </Typography>
         {isNonMobileScreens && (
-          <FlexBetween backgroundColor={neutralLight} borderRadius="9px" gap="3rem" padding="0.1rem 1.5rem">
+          <FlexBetween
+            backgroundColor={neutralLight}
+            borderRadius="9px"
+            gap="3rem"
+            padding="0.1rem 1.5rem"
+          >
             <InputBase placeholder="Search..." />
             <IconButton>
               <Search />
@@ -88,13 +95,13 @@ const NavBar = () => {
                 p: "0.25rem 1rem",
                 "& .MuiSvgIcon-root": {
                   pr: "0.25rem",
-                  width: "3rem"
+                  width: "3rem",
                 },
-              "& .MuiSelect-select:focus": {
-                backgroundColor: neutralLight
-              }
-            }}
-            input={<InputBase />}
+                "& .MuiSelect-select:focus": {
+                  backgroundColor: neutralLight,
+                },
+              }}
+              input={<InputBase />}
             >
               <MenuItem value={fullName}>
                 <Typography>{fullName}</Typography>
@@ -104,10 +111,13 @@ const NavBar = () => {
           </FormControl>
         </FlexBetween>
       ) : (
-        <IconButton onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}>
+        <IconButton
+          onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
+        >
           <Menu />
         </IconButton>
       )}
+
       {/* MOBILE NAV */}
       {!isNonMobileScreens && isMobileMenuToggled && (
         <Box
@@ -129,7 +139,7 @@ const NavBar = () => {
             </IconButton>
           </Box>
           {/* MENU ITEMS */}
-           <FlexBetween
+          <FlexBetween
             display="flex"
             flexDirection="column"
             justifyContent="center"
@@ -179,7 +189,7 @@ const NavBar = () => {
         </Box>
       )}
     </FlexBetween>
-  )
-}
+  );
+};
 
 export default NavBar;
