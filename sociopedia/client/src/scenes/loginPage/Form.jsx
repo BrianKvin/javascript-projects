@@ -62,7 +62,7 @@ const Form = () => {
       formData.append(value, values[value]);
     }
     formData.append("picturePath", values.picture.name);
-
+    console.log(formData);
     const savedUserResponse = await fetch(
       "http://localhost:3001/auth/register",
       {
@@ -182,9 +182,11 @@ const Form = () => {
                   <Dropzone
                     acceptedFiles=".jpg,.jpeg,.png"
                     multiple={false}
-                    onDrop={(acceptedFiles) =>
-                      setFieldValue("picture", acceptedFiles[0])
-                    }
+                    onDrop={(acceptedFiles) => {
+                      if (acceptedFiles.length > 0) {
+                        setFieldValue("picture", acceptedFiles[0]);
+                      }
+                    }}
                   >
                     {({ getRootProps, getInputProps }) => (
                       <Box
